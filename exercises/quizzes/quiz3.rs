@@ -21,19 +21,13 @@ struct ReportCard<T> {
 // TODO: Adjust the impl block as described above.
 impl<T: std::fmt::Display> ReportCard<T> {
     fn print(&self) -> String {
-        if &self.grade.is_string() {
-            format!(
-                "{} ({}) - achieved a grade of {}",
-                &self.student_name, &self.student_age, &self.grade,
-            )
-        } else {
-            format!(
-                "{} ({}) - achieved a grade of {}",
-                &self.student_name, &self.student_age, &self.grade,
-            )
-        }
+        format!(
+            "{} ({}) - achieved a grade of {}",
+            &self.student_name, &self.student_age, &self.grade,
+        )
     }
 }
+
 
 fn main() {
     // You can optionally experiment here.
