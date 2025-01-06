@@ -3,7 +3,6 @@
 // You can read more about it in the documentation:
 // https://doc.rust-lang.org/std/convert/trait.From.html
 
-use std::num::ParseIntError;
 
 #[derive(Debug)]
 struct Person {
@@ -38,20 +37,19 @@ impl Default for Person {
 impl From<&str> for Person {
     fn from(s: &str) -> Self {
         let v: Vec<&str> = s.split(',').collect();
-        if v.len() < 2 {
-            Person::default();
+        if v.len() < 2 || v.len() > 2 {
+            return Person::default()
         };
         let name = v[0].to_string();
         if name.is_empty() {
-            Person::default();
+            return Person::default()
         };
-        let age = v[1].parse::<u8>();
-        if age == Err(ParseIntError) {
-            Person::default()
-        } else {
-            Person { name, age: age.unwrap() }
-        }
-        
+        let parse = v[1].parse::<u8>();
+        if let Err(e) = parse {
+            return Person::default()
+        };
+        let age = parse.unwrap();
+            Person { name, age }
     }
 }
 
